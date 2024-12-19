@@ -82,3 +82,22 @@ A detailed video demonstration of the project, explaining the functionalities an
 [**Video Demonstration**](https://github.com/sriram6791/WashingMachineLiveStatus-DBMS-Project-/blob/b09b499c931c2c560c3cfa2d590fdf789079707b/Video%20demonstration.mp4)
 
 
+# DBMS Project - Frontend Screenshots
+
+Here are some screenshots of the **Washing Machine Status Tracker** project:
+
+![Screenshot 2024-05-17 154940](https://github.com/sriram6791/WashingMachineLiveStatus-DBMS-Project-/raw/11baeacab689d4c2973aecbed8430fc29953cecc/DBMS-Project_submission_folder/dbms%20front%20end%20screenshots/Screenshot%202024-05-17%20154940.png)
+
+![Screenshot 2024-05-17 160407](https://github.com/sriram6791/WashingMachineLiveStatus-DBMS-Project-/raw/11baeacab689d4c2973aecbed8430fc29953cecc/DBMS-Project_submission_folder/dbms%20front%20end%20screenshots/Screenshot%202024-05-17%20160407.png)
+
+![Screenshot 2024-05-17 160435](https://github.com/sriram6791/WashingMachineLiveStatus-DBMS-Project-/raw/11baeacab689d4c2973aecbed8430fc29953cecc/DBMS-Project_submission_folder/dbms%20front%20end%20screenshots/Screenshot%202024-05-17%20160435.png)
+
+![Screenshot 2024-05-17 160457](https://github.com/sriram6791/WashingMachineLiveStatus-DBMS-Project-/raw/11baeacab689d4c2973aecbed8430fc29953cecc/DBMS-Project_submission_folder/dbms%20front%20end%20screenshots/Screenshot%202024-05-17%20160457.png)
+
+![Screenshot 2024-05-17 160516](https://github.com/sriram6791/WashingMachineLiveStatus-DBMS-Project-/raw/11baeacab689d4c2973aecbed8430fc29953cecc/DBMS-Project_submission_folder/dbms%20front%20end%20screenshots/Screenshot%202024-05-17%20160516.png)
+
+![Screenshot 2024-05-17 160543](https://github.com/sriram6791/WashingMachineLiveStatus-DBMS-Project-/raw/11baeacab689d4c2973aecbed8430fc29953cecc/DBMS-Project_submission_folder/dbms%20front%20end%20screenshots/Screenshot%202024-05-17%20160543.png)
+
+![Screenshot 2024-05-17 160604](https://github.com/sriram6791/WashingMachineLiveStatus-DBMS-Project-/raw/11baeacab689d4c2973aecbed8430fc29953cecc/DBMS-Project_submission_folder/dbms%20front%20end%20screenshots/Screenshot%202024-05-17%20160604.png)
+
+![Screenshot 2024-05-17 160625](https://github.com/sriram6791/WashingMachineLiveStatus-DBMS-Project-/raw/11baeacab689d4c2973aecbed8430fc29953cecc/DBMS-Project_submission_folder/dbms%20front%20end%20screenshots/Screenshot%202024-05-17%20160625.png)
