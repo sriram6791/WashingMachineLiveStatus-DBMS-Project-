@@ -1,0 +1,259 @@
+WORKING HMTL CODE: 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Washing Machine Live Status</title>
+    <style>
+        /* Styles for the login button */
+        .login-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Washing Machine Live Status (Test website with functinality)</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>WM ID</th>
+                <th>Live Status</th>
+                <th>Type</th>
+                <th>Location</th>
+                <th>Toggle</th> <!-- Add a new column for the toggle buttons -->
+            </tr>
+        </thead>
+        <tbody id="data-container"></tbody>
+    </table>
+
+    <script>
+        // Fetch data from your Node.js server
+        fetch('/data') // Replace with your actual route
+            .then(response => response.json())
+            .then(data => {
+                appendData(data); // Call the appendData function
+                addToggleListeners(); // Add event listeners to toggle buttons
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
+        // Function to append data to the table
+        function appendData(data) {
+            const dataContainer = document.getElementById('data-container');
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.WM_ID}</td>
+                    <td>${item.Live_Status}</td>
+                    <td>${item.Type}</td>
+                    <td>${item.Location}</td>
+                    <td><button class="toggle-button" data-id="${item.WM_ID}">Toggle</button></td> <!-- Add the toggle button -->
+                `;
+                dataContainer.appendChild(row);
+            });
+        }
+
+        // Function to add event listeners to toggle buttons
+        function addToggleListeners() {
+            const toggleButtons = document.querySelectorAll('.toggle-button');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const wmId = button.getAttribute('data-id');
+                    toggleStatus(wmId);
+                });
+            });
+        }
+
+        // Function to toggle status
+        function toggleStatus(wmId) {
+            fetch(`/toggle/${wmId}`, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    // Assuming the response contains updated data, update UI accordingly
+                    console.log('Status toggled successfully:', data);
+                    location.reload();
+                    // You might want to update the UI to reflect the new status
+                })
+                .catch(error => console.error('Error toggling status:', error));
+        }
+    </script>
+</body>
+<body>
+    <!-- Login button -->
+    <button class="login-button" onclick="location.href='login.html';">Login</button>
+
+
+    <!-- Rest of your HTML content -->
+
+    <!-- Script and other content -->
+</body>
+</html> 
+
+
+
+
+
+
+
+
+
+
+const express = require('express');
+const app = express();
+const { Client } = require('pg');
+const bodyParser = require('body-parser'); // Import bodyParser to handle POST requests
+
+const client = new Client({
+    host: "localhost",
+    user: "postgres",
+    port: 5432,
+    password: "Qwerty@6570",
+    database: "WashingMachineLiveStatus"
+});
+
+client.connect()
+    .then(() => {
+        console.log("Db connected -");
+    })
+    .catch((error) => {
+        console.error("Error connecting to the database:", error);
+    });
+
+// Middleware to parse JSON and URL-encoded bodies
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve the index.html file
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
+
+// Serve the login.html file
+app.get('/login.html', (req, res) => {
+    res.sendFile(__dirname + '/login.html');
+});
+
+// Serve the securityView.html file
+app.get('/securityView.html', (req, res) => {
+    res.sendFile(__dirname + '/securityView.html');
+});
+
+// Serve the feedbackPage.html file
+app.get('/feedbackPage.html', (req, res) => {
+    res.sendFile(__dirname + '/feedbackPage.html');
+});
+
+// Define a route to handle login requests
+app.post('/login', bodyParser.urlencoded({ extended: true }), (req, res) => {
+    const { username, password } = req.body;
+    // Check if the username is "security" and any password
+    if (username === 'security') {
+        res.redirect('/securityView.html'); // Redirect to securityview.html
+    } else {
+        // For other usernames, implement your actual authentication logic
+        // Here, let's assume a basic authentication for demonstration
+        if (username === 'admin' && password === 'adminpassword') {
+            res.redirect('/'); // Redirect to home page if login is successful
+        } else {
+            res.redirect('/login.html'); // Redirect back to login page if login fails
+        }
+    }
+});
+
+// Define a route to retrieve data from the database
+app.get('/data', (req, res) => {
+    client.query('SELECT * FROM public."WashingMachine"')
+        .then(result => {
+            console.log("Data retrieved successfully:");
+            console.log(result.rows);
+            res.json(result.rows);
+        })
+        .catch(error => {
+            console.error("Error executing query:", error);
+            res.status(500).send('Internal server error');
+        });
+});
+
+// Define a route to handle toggle requests
+app.post('/toggle/:id', (req, res) => {
+    const wmId = req.params.id;
+    // Assuming you have a function to toggle status in the database
+    toggleStatusInDatabase(wmId)
+        .then(updatedData => {
+            res.json(updatedData); // Send back updated data
+        })
+        .catch(error => {
+            console.error("Error toggling status:", error);
+            res.status(500).send('Internal server error');
+        });
+});
+
+// Function to toggle status in the database
+function toggleStatusInDatabase(wmId) {
+    // Your logic to toggle status in the database
+    // Update the Live_Status column for the given WM_ID
+    return new Promise((resolve, reject) => {
+        client.query('UPDATE public."WashingMachine" SET "Live_Status" = NOT "Live_Status" WHERE "WM_ID" = $1 RETURNING *', [wmId])
+            .then(result => {
+                console.log("Status toggled successfully:");
+                console.log(result.rows);
+                resolve(result.rows);
+                
+            })
+            .catch(error => {
+                console.error("Error toggling status in database:", error);
+                reject(error);
+            });
+    });
+}
+
+// Handle form submission
+app.post('/submitFeedback', (req, res) => {
+    // Extract data from the form
+    const { studentID, complaint, washingMachineID } = req.body;
+
+    // Set Complaint_Status to "Working on it"
+    const complaintStatus = 'Working on it';
+    const complaintID = generateComplaintID();
+
+    // Insert the data into the database
+   // Insert the data into the database
+const query = `
+INSERT INTO public."Feedback"(Complaint, Complaint_ID, Complaint_Status, WM_ID, Student_ID)
+    VALUES ($1, DEFAULT, $2, $3, $4)
+`;
+const values = [complaint,complaintID, complaintStatus, washingMachineID, studentID];
+
+
+    client.query(query, values)
+        .then(result => {
+            console.log("Feedback submitted successfully");
+            // Redirect to a new page or refresh the current page
+            res.redirect('/feedbackSubmitted.html');
+        })
+        .catch(err => {
+            console.error("Error submitting feedback:", err);
+            res.status(500).send('Internal server error');
+        });
+});
+
+
+function generateComplaintID() {
+    // Generate a random number as the complaint ID
+    return Math.floor(Math.random() * 1000000); // Adjust range as needed
+}
+
+// Start the server
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+    console.log(`Server is listening at port ${port}...`);
+});

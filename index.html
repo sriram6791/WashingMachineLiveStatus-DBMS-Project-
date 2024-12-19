@@ -1,0 +1,476 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Washing Machine Data</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h2>Washing Machine Data</h2>
+  <table id="washing-machine-table">
+    <thead>
+      <tr>
+        <th>WM_ID</th>
+        <th>Live_Status</th>
+        <th>Type</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody id="data-body"></tbody>
+  </table>
+
+  <script>
+    fetch('/data')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.getElementById('data-body');
+        data.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${row.WM_ID}</td><td>${row.Live_Status}</td><td>${row.Type}</td><td>${row.Location}</td>`;
+          tableBody.appendChild(tr);
+        });
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  </script>
+</body>
+</html> -->
+
+<!--!   THIS IS WORKING CODE   -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Washing Machine Live Status</title>
+</head>
+<body>
+    <h1>Washing Machine Live Status (Test website)</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>WM ID</th>
+                <th>Live Status</th>
+                <th>Type</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody id="data-container"></tbody>
+    </table>
+
+    <script>
+        // Fetch data from your Node.js server
+        fetch('/data') // Replace with your actual route
+            .then(response => response.json())
+            .then(data => {
+                appendData(data); // Call the appendData function
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
+        // Function to append data to the table
+        function appendData(data) {
+            const dataContainer = document.getElementById('data-container');
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.WM_ID}</td>
+                    <td>${item.Live_Status}</td>
+                    <td>${item.Type}</td>
+                    <td>${item.Location}</td>
+                `;
+                dataContainer.appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html> -->
+<!--!   THIS IS WORKING CODE   -->
+
+<!--!   above THIS IS WORKING CODE   -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Washing Machine Live Status</title>
+    <style>
+        /* Styles for the login button */
+        .login-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .feedback-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <h1>Washing Machine Live Status (Test website with functionality)</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>WM ID</th>
+                <th>Live Status</th>
+                <th>Type</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody id="data-container"></tbody>
+    </table>
+
+    <script>
+        // Fetch data from your Node.js server
+        fetch('/data') // Replace with your actual route
+            .then(response => response.json())
+            .then(data => {
+                // Check if the table already contains rows
+                const dataContainer = document.getElementById('data-container');
+                if (dataContainer.children.length === 0) {
+                    appendData(data); // Call the appendData function if the table is empty
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
+        // Function to append data to the table
+        function appendData(data) {
+            const dataContainer = document.getElementById('data-container');
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.WM_ID}</td>
+                    <td>${item.Live_Status}</td>
+                    <td>${item.Type}</td>
+                    <td>${item.Location}</td>
+                `;
+                dataContainer.appendChild(row);
+            });
+        }
+    </script>
+
+    <!-- Login button 
+    <button class="login-button" onclick="location.href='login.html';">Login</button>
+    <button class="feedback-button" onclick="location.href='feedbackPage.html';">Feedback</button>
+</body>
+</html>
+ -->
+
+<!-- with csss -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Washing Machine Live Status</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 40px 0;
+            color: #007bff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Styles for the login and feedback buttons */
+        .login-button, .feedback-button {
+            position: fixed;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 999;
+        }
+
+        .login-button {
+            top: 20px;
+            right: 20px;
+        }
+
+        .feedback-button {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .login-button:hover, .feedback-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Washing Machine Live Status (Test website with functionality)</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>WM ID</th>
+                <th>Live Status</th>
+                <th>Type</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody id="data-container"></tbody>
+    </table>
+
+    <script>
+        // Fetch data from your Node.js server
+        fetch('/data') // Replace with your actual route
+            .then(response => response.json())
+            .then(data => {
+                // Check if the table already contains rows
+                const dataContainer = document.getElementById('data-container');
+                if (dataContainer.children.length === 0) {
+                    appendData(data); // Call the appendData function if the table is empty
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
+        // Function to append data to the table
+        function appendData(data) {
+            const dataContainer = document.getElementById('data-container');
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.WM_ID}</td>
+                    <td>${item.Live_Status}</td>
+                    <td>${item.Type}</td>
+                    <td>${item.Location}</td>
+                `;
+                dataContainer.appendChild(row);
+            });
+        }
+    </script>
+
+    <!-- Login button 
+    <button class="login-button" onclick="location.href='login.html';">Login</button>
+    <button class="feedback-button" onclick="location.href='feedbackPage.html';">Feedback</button>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Washing Machine Live Status</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #283044;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .card {
+        background-color: #fff;
+        border-radius: 25px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #ebf5ee;
+        margin-bottom: 30px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #78a1bb;
+        color: #283044;
+      }
+
+      /* Styles for the login and feedback buttons */
+      .login-button,
+      .feedback-button {
+        position: fixed;
+        padding: 10px 20px;
+        background-color: #78a1bb;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        z-index: 999;
+      }
+
+      .login-button {
+        top: 20px;
+        right: 20px;
+      }
+
+      .feedback-button {
+        bottom: 20px;
+        right: 20px;
+      }
+
+      .login-button:hover,
+      .feedback-button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="image">
+      <img
+        src="https://th.bing.com/th/id/R.39ff15b741cdea45225333440581b61b?rik=YUHcMksjsfthDA&riu=http%3a%2f%2fbeta.iiitdm.ac.in%2flogo.png&ehk=SDLQ10PJ7KkpSSY%2b7Jf2RspInpJk7mlcNDdU%2b9Q%2f4Ik%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1"
+        alt="Logo"
+        style="height: 100px; width: auto"
+      />
+    </div>
+    <style>
+      .image {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+    </style>
+    <div class="container">
+      <h1>
+        Indian Institute of Information Technology Design and Manufacturing
+      </h1>
+      <h1>Washing Machine Live Status</h1>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>WM ID</th>
+              <th>Live Status</th>
+              <th>Type</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody id="data-container"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      // Fetch data from your Node.js server
+      fetch("/data") // Replace with your actual route
+        .then((response) => response.json())
+        .then((data) => {
+          // Sort the data based on WM ID in ascending order
+          data.sort((a, b) => a.WM_ID - b.WM_ID);
+          // Call the function to append data to the table
+          appendData(data);
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+
+      // Function to append data to the table
+      function appendData(data) {
+        const dataContainer = document.getElementById("data-container");
+        data.forEach((item) => {
+          const row = document.createElement("tr");
+          let liveStatus;
+          if (
+            item.Live_Status === "Not-Working" ||
+            item.Live_Status === "UnderMaintenance"
+          ) {
+            liveStatus = item.Live_Status;
+          } else {
+            liveStatus = item.Live_Status ? "Available" : "Occupied";
+          }
+          row.innerHTML = `
+            <td>${item.WM_ID}</td>
+            <td>${liveStatus}</td>
+            <td>${item.Type}</td>
+            <td>${item.Location}</td>
+        `;
+          dataContainer.appendChild(row);
+        });
+      }
+    </script>
+
+    <!-- Login button -->
+    <button class="login-button" onclick="location.href='login.html';">
+      Login
+    </button>
+    <button
+      class="feedback-button"
+      onclick="location.href='feedbackPage.html';"
+    >
+      Feedback
+    </button>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      /* CSS for Login Page */
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #283044;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 400px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 25px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        margin-bottom: 8px;
+        color: #555;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 12px;
+      }
+
+      button[type="submit"] {
+        padding: 10px;
+        background-color: #78a1bb;
+        color: #283044;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #283044;
+        color: #78a1bb;
+      }
+
+      .error-message {
+        color: red;
+        margin-top: 10px;
+      }
+
+
+      .back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px;
+    background-color: transparent;
+    color:aliceblue;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 999;
+}
+
+.back-button img {
+    width: 30px; /* Adjust the size of the arrow icon as needed */
+}
+
+.back-button:hover {
+    transform: scale(1.2); /* Scale up the button on hover */
+}
+
+    </style>
+  </head>
+  <body>
+    <button class="back-button" onclick="goBack()">Back</button>
+
+    <div class="container">
+      <h2>Login</h2>
+      <form id="loginForm" action="/login" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <!-- JavaScript to handle form submission and redirection -->
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the default form submission
+          fetch("/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams(new FormData(this)),
+          })
+            .then((response) => {
+              if (response.redirected) {
+                if (response.url.includes("securityView.html")) {
+                  window.location.href = response.url; // Redirect to securityView.html
+                } else if (response.url.includes("feedbackAdminPage.html")) {
+                  window.location.href = response.url; // Redirect to feedbackAdminPage.html
+                } else {
+                  console.error("Invalid redirection:", response.url);
+                }
+              }
+            })
+            .catch((error) => {
+              console.error("Login error:", error);
+            });
+        });
+        
+        function goBack() {
+    window.history.back();
+}
+
+    </script>
+  </body>
+</html>
